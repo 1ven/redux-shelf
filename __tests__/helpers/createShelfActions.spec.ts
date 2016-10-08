@@ -37,6 +37,20 @@ describe('createShelfActions', () => {
   });
 
   it('should create async actions creators object which contains `failure` action creator with default error message if no one is provided in payload', () => {
+    const payload = {
+      value: 'some value',
+    };
+
+    expect(actions.failure(payload)).toEqual({
+      type: 'TODOS_FAILURE',
+      payload: {
+        value: 'some value',
+        message: 'Something bad happened',
+      },
+    });
+  });
+
+  it('should create async actions creators object which contains `failure` actions creator with default error message if payload is not provided', () => {
     expect(actions.failure()).toEqual({
       type: 'TODOS_FAILURE',
       payload: {

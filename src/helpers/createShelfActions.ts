@@ -15,12 +15,12 @@ function createShelfActions([request, success, failure]: IActionType[]) {
         payload,
       };
     },
-    failure(payload?: IActionPayload) {
+    failure(payload?: IActionPayload = {}) {
       return {
         type: failure,
-        payload: payload || {
-          message: 'Something bad happened',
-        },
+        payload: assign(payload, {
+          message: payload.message || 'Something bad happened',
+        }),
       };
     },
   };
