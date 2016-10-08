@@ -4,6 +4,7 @@ const apis = {
     method: 'get',
     schema: TODOS_ARRAY,
     statePath: 'data.todos',
+    responsePath: 'result', // default json response
     shouldCreateSaga: true, // default
   },
 };
@@ -13,5 +14,6 @@ interface IShelfApi {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   schema?: any,
   statePath?: string,
+  responsePath?: string,
   shouldCreateSaga?: boolean,
 }

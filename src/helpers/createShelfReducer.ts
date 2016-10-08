@@ -1,42 +1,43 @@
-function createShelfReducer([request, success, failure], customState, map) {
+// at first create tests with this implementation and then refactor it with using createReducer
+import assign from '../utils/assign';
+
+import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces';
+
+function createShelfReducer([request, success, failure]: IAsyncActionTypes, customState?: IAnyObject, customMap?: IActionHandlersMap) {
   return (
-    state = {
-      ...customState,
+    state = assign(customState, {
       isFetching: false,
       lastUpdated: undefined,
       error: undefined,
-    },
+    }),
     action = {}
   ) => {
     const { payload } = action;
 
-    if (map) {
-      for (let [key, value] of map) {
-        if (key === action.type) {
-          return value(state, payload);
+    if (customMap) {
+      for (let actionType in customMap) {
+        if (actionType === actionType) {
+          return customMap[actionType](state, payload);
         }
       }
     }
 
     switch (action.type) {
       case request:
-        return {
-          ...state,
+        return assign(state, {
           isFetching: true,
-        };
+        });
       case success:
-        return {
-          ...state,
+        return assign(state, {
           isFetching: false,
           lastUpdated: payload.receivedAt,
           error: undefined,
-        };
+        });
       case failure:
-        return {
-          ...state,
+        return assign(state, {
           isFetching: false,
           error: payload.message,
-        };
+        });
       default:
         return state;
     }

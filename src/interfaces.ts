@@ -7,6 +7,12 @@ export interface IAction {
   payload?: any,
 }
 
+export interface IAsyncActionTypes {
+  0: string,
+  1: string,
+  2: string,
+}
+
 export type IActionPayload = IAnyObject;
 
 export type IActionType = string;

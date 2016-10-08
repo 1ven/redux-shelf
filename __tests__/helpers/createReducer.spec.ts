@@ -5,7 +5,7 @@ import createReducer from '../../src/helpers/createReducer';
 const reducer = createReducer({
   todos: [],
   isFetching: false,
-  errorMessage: undefined,
+  error: undefined,
 }, {
   'FETCH_TODOS_REQUEST': (state, payload) => assign({}, state, {
     isFetching: true,
@@ -16,7 +16,7 @@ const reducer = createReducer({
   }),
   'FETCH_TODOS_FAILURE': (state, payload) => assign({}, state, {
     isFetching: false,
-    errorMessage: payload.errorMessage,
+    error: payload.error,
   }),
 });
 
@@ -25,7 +25,7 @@ describe('createReducer', () => {
     expect(reducer(undefined, { type: '' })).toEqual({
       todos: [],
       isFetching: false,
-      errorMessage: undefined,
+      error: undefined,
     });
   });
 
@@ -33,7 +33,7 @@ describe('createReducer', () => {
     const state = {
       todos: [],
       isFetching: false,
-      errorMessage: undefined,
+      error: undefined,
     };
     const action = {
       type: 'FETCH_TODOS_REQUEST',
