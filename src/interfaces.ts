@@ -7,6 +7,8 @@ export interface IAction {
   payload?: any,
 }
 
+export type IActionPayload = IAnyObject;
+
 export type IActionType = string;
 
 export type IRequestURL = string | () => string;

@@ -1,23 +1,25 @@
-function createShelfActions([request, success, failure]) {
+import { IActionType, IActionPayload } from '../interfaces';
+import assign from '../utils/assign';
+
+function createShelfActions([request, success, failure]: IActionType[]) {
   return {
-    request(payload) {
+    request(payload?: IActionPayload) {
       return {
         type: request,
         payload,
       };
     },
-    success(payload) {
+    success(payload?: IActionPayload) {
       return {
         type: success,
         payload,
       };
     },
-    failure(payload) {
+    failure(payload?: IActionPayload) {
       return {
         type: failure,
-        payload: {
-          ...payload,
-          message: payload.message || 'Something bad happened',
+        payload: payload || {
+          message: 'Something bad happened',
         },
       };
     },
