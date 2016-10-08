@@ -1,2 +1,4 @@
 node_modules
+typings
+__temp
 .DS_Store

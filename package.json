@@ -1,14 +1,33 @@
 {
-  "name": "redux-async",
+  "name": "redux-shelf",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "postinstall": "typings install",
+    "build": "tsc --project ."
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "axios": "^0.14.0",
+    "lodash": "^4.16.4",
+    "normalizr": "^2.2.1"
+  },
   "devDependencies": {
-    "webpack": "^1.13.2"
+    "deep-freeze": "0.0.1",
+    "jest-cli": "^16.0.1",
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "testRegex": "/__tests__/.*\\.ts$"
   }
 }
