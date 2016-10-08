@@ -1,22 +1,22 @@
-function createReducer(initialState, map) {
-  return (state = initialState, action = {}) => {
-    for (let [key, value] of map) {
-      if (key === action.type) {
-        return value(state, action.payload);
+import { IAction, IActionType } from '../interfaces';
+
+function createReducer(initialState: IState, map: IActionHandlersMap) {
+  return (state: IState = initialState, action: IAction) => {
+    for (let actionType: IActionType in map) {
+      if (actionType === action.type) {
+        return map[actionType](state, action.payload);
       }
     }
-
     return state;
   }
 }
 
-export default createReducer;
+type IState = any;
 
-/* const reducer = createReducer({
-  isFetching: false,
-}, { */
-/*   'FETCH_REQUEST': (state, payload) => ({ */
-/*     ...state, */
-/*     isFetching: true, */
-/*   }); */
-/* }); */
+type IActionHandler = (state: IState, payload?: any) => IState;
+
+interface IActionHandlersMap {
+  [key: IActionType]: IActionHandler,
+}
+
+export default createReducer;
