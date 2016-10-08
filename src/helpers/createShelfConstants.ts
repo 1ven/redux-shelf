@@ -1,10 +1,6 @@
-import camelToSnake from './utils';
+import camelToSnake from '../utils/camelToSnake';
 
-/* const createObject = types => types.reduce((acc, type) => ({ */
-/*   ...acc, [type]: type */
-/* }), {}); */
-
-function createShelfConstants(name) {
+function createShelfConstants(name: string) {
   const n = camelToSnake(name).toUpperCase();
   return [
     `${n}_REQUEST`,
@@ -14,9 +10,3 @@ function createShelfConstants(name) {
 };
 
 export default createShelfConstants;
-
-/* export default const createShelfConstants = name => ( */
-/*   createObject( */
-/*     createTypesArray(name) */
-/*   ) */
-/* ); */
