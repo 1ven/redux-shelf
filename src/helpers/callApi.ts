@@ -1,21 +1,39 @@
 import * as axios from 'axios';
 import { normalize } from 'normalizr';
 
-function callApi(url, method, schema, data) {
-  return axios({
-    url: typeof url === 'function' ? url() : url,
-    method,
-    data,
-  }).then(body => {
-    const receivedAt = Date.now();
-    return schema ? {
-      ...normalize(body, schema),
-      receivedAt,
-    } : {
-      result: body,
-      receivedAt,
-    };
-  });
+import { IAnyObject, IRequestMethod, IRequestURL } from '../interfaces';
+
+function callApi(
+  url: IRequestURL,
+  method: IRequestMethod,
+  schema?: Normalizr.SchemaType,
+  data?: IAnyObject
+): Promise<IApiData> {
+  const _url = typeof url === 'function' ? url() : url;
+
+  return axios({ url: _url, method, data })
+    .then(({ data }: Axios.AxiosXHR<IServerResponse>) => {
+      const receivedAt = Date.now();
+
+      return schema ? {
+        normalized: normalize(data, schema),
+        receivedAt,
+      } : {
+        result: data,
+        receivedAt,
+      };
+    });
 }
+
+interface IApiData {
+  normalized?: {
+    result: (string | number)[],
+    entities: IAnyObject,
+  },
+  result?: IServerResponse,
+  receivedAt: number,
+}
+
+type IServerResponse = any;
 
 export default callApi;
