@@ -4,7 +4,7 @@ import camelToSnake from './utils';
 /*   ...acc, [type]: type */
 /* }), {}); */
 
-export default const createShelfConstants = name => {
+function createShelfConstants(name) {
   const n = camelToSnake(name).toUpperCase();
   return [
     `${n}_REQUEST`,
@@ -12,6 +12,8 @@ export default const createShelfConstants = name => {
     `${n}_FAILURE`,
   ];
 };
+
+export default createShelfConstants;
 
 /* export default const createShelfConstants = name => ( */
 /*   createObject( */

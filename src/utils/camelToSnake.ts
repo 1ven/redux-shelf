@@ -1,6 +1,6 @@
 const isUpperLetter = (letter: string) => letter.toUpperCase() === letter
 
-export default function camelToSnake(str: string) {
+function camelToSnake(str: string) {
   return str
     .split('')
     .reduce((acc: string, letter: string) => (
@@ -11,3 +11,5 @@ export default function camelToSnake(str: string) {
       )
     ), '');
 }
+
+export default camelToSnake;

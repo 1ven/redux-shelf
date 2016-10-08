@@ -1,5 +1,5 @@
-export default const createReducer = (initialState, map) => (
-  function(state = initialState, action = {}) {
+function createReducer(initialState, map) {
+  return (state = initialState, action = {}) => {
     for (let [key, value] of map) {
       if (key === action.type) {
         return value(state, action.payload);
@@ -7,8 +7,10 @@ export default const createReducer = (initialState, map) => (
     }
 
     return state;
-  };
-);
+  }
+}
+
+export default createReducer;
 
 /* const reducer = createReducer({
   isFetching: false,

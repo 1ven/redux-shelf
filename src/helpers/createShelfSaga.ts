@@ -1,4 +1,4 @@
-export function createShelfSaga([ request, success, failure ], apiFunc) {
+function createShelfSaga([ request, success, failure ], apiFunc) {
   return {
     task: function* (requestAction) {
       try {
@@ -16,3 +16,5 @@ export function createShelfSaga([ request, success, failure ], apiFunc) {
     },
   };
 }
+
+export default function createShelfSaga;

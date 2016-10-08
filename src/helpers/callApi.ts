@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 import { normalize } from 'normalizr';
 
-export default function callApi(url, method, schema, data) {
+function callApi(url, method, schema, data) {
   return axios({
     url: typeof url === 'function' ? url() : url,
     method,
@@ -17,3 +17,5 @@ export default function callApi(url, method, schema, data) {
     };
   });
 }
+
+export default callApi;

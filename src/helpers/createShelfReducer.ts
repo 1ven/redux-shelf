@@ -1,10 +1,13 @@
-export default const createShelfReducer = ([request, success, failure], customState, map) => (
-  function(state = {
-    ...customState,
-    isFetching: false,
-    lastUpdated: undefined,
-    error: undefined,
-  }, action = {}) {
+function createShelfReducer([request, success, failure], customState, map) {
+  return (
+    state = {
+      ...customState,
+      isFetching: false,
+      lastUpdated: undefined,
+      error: undefined,
+    },
+    action = {}
+  ) => {
     const { payload } = action;
 
     if (map) {
@@ -37,5 +40,7 @@ export default const createShelfReducer = ([request, success, failure], customSt
       default:
         return state;
     }
-  };
-)
+  }
+}
+
+export default createShelfReducer;
