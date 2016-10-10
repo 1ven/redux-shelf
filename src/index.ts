@@ -13,32 +13,34 @@ import createObject from './utils/createObject';
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
-export default function createApis(apisConfig) {
-  return mapValues(apisConfig, (data = {
+export default function createApis(apisConfigList) {
+  return mapValues(apisConfigList, (config = {
     url,
-    name,
     method,
     schema,
+    statePath,
+    responsePath,
     shouldCreateSaga = true,
-  }) => ({
+  }, name) => ({
     constants: createShelfConstants(name),
     actions: createShelfActions(this.constants),
     reducer: createShelfReducer(this.actions),
-    saga: createShelfSaga(this.actions, this.call),
-    callApiWrapper: payload => callApi(url, method, schema, payload),
-    data,
+    saga: createShelfSaga(this.actions, this.callApiWrapper),
+    callApiWrapper: requestPayload => callApi(url, method, schema, requestPayload),
+    name,
+    config,
   }));
 }
 
 export function handleSagas(apis) {
-  return reduce(apis, api => !api.data.saga ? acc : [
+  return reduce(apis, (acc, api) => !api.config.shouldCreateSaga ? acc : [
     ...acc,
     api.saga
   ], []);
 }
 
 export function handleReducers(apis) {
-  return reduce(apis, ({ data: { statePath } }) => (
+  return reduce(apis, (acc, { config: { statePath } }) => (
     !statePath ? acc : merge({}, acc, createObject(statePath))
   ), {});
 }
