@@ -1,6 +1,8 @@
 import camelToSnake from '../utils/camelToSnake';
 
-function createShelfConstants(name: string) {
+import { IApiName, IAsyncActionTypes } from '../interfaces';
+
+function createShelfConstants(name: IApiName): IAsyncActionTypes {
   const n = camelToSnake(name).toUpperCase();
   return [
     `${n}_REQUEST`,

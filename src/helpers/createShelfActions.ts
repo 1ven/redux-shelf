@@ -1,7 +1,7 @@
-import { IActionType, IActionPayload } from '../interfaces';
+import { IActionPayload, IAsyncActionTypes, IAsyncActions } from '../interfaces';
 import assign from '../utils/assign';
 
-function createShelfActions([request, success, failure]: IActionType[]) {
+function createShelfActions([request, success, failure]: IAsyncActionTypes): IAsyncActions {
   return {
     request(payload?: IActionPayload) {
       return {

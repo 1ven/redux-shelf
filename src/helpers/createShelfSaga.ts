@@ -1,14 +1,22 @@
-function createShelfSaga([ request, success, failure ], apiFunc) {
+import assign from '../utils/assign';
+
+import { IAsyncActions, IAction, ICallApiWrapper } from '../interfaces';
+
+function createShelfSaga(
+  { request, success, failure }: IAsyncActions,
+  callApiWrapper: ICallApiWrapper
+) {
   return {
-    task: function* (requestAction) {
+    task: function* (requestAction: IAction) {
       try {
-        const responsePayload = yield call(apiFunc, requestAction.payload);
-        yield put(success({
-          ...responsePayload,
-          request: requestAction,
-        }));
+        const responsePayload = yield call(callApiWrapper, requestAction.payload);
+        yield put(success(assign(responsePayload, {
+          requestPayload: requestAction.payload,
+        })));
       } catch(err) {
-        yield put(failure(err.message));
+        yield put(failure({
+          message: err.message,
+        }));
       }
     },
     watcher: function* () {
@@ -17,4 +25,4 @@ function createShelfSaga([ request, success, failure ], apiFunc) {
   };
 }
 
-export default function createShelfSaga;
+export default createShelfSaga;

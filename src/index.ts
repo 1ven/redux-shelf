@@ -1,7 +1,7 @@
 // rename `data` variable
-import merge from 'lodash/merge';
-import reduce from 'lodash/reduce';
-import mapValues from 'lodash/mapValues';
+import * as merge from 'lodash/merge';
+import * as reduce from 'lodash/reduce';
+import * as mapValues from 'lodash/mapValues';
 
 import callApi from './helpers/callApi';
 import createShelfConstants from './helpers/createShelfConstants';
@@ -11,13 +11,21 @@ import createShelfActions from './helpers/createShelfActions';
 
 import createObject from './utils/createObject';
 
-export default function createApis(config) {
-  return mapValues(config, (data = { url, name, method, schema, saga = true }) => ({
+import { IApiConfigurationList, IApiConfiguration } from './interfaces';
+
+export default function createApis(apisConfig: IApiConfigurationList) {
+  return mapValues(apisConfig, (data = {
+    url,
+    name,
+    method,
+    schema,
+    shouldCreateSaga = true,
+  }: IApiConfiguration) => ({
     constants: createShelfConstants(name),
     actions: createShelfActions(this.constants),
     reducer: createShelfReducer(this.actions),
     saga: createShelfSaga(this.actions, this.call),
-    call: params => callApi(url, method, schema, params),
+    callApiWrapper: payload => callApi(url, method, schema, payload),
     data,
   }));
 }

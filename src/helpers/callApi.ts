@@ -1,14 +1,9 @@
 import * as axios from 'axios';
 import { normalize } from 'normalizr';
 
-import { IAnyObject, IRequestMethod, IRequestURL } from '../interfaces';
+import { ICallApi } from '../interfaces';
 
-function callApi(
-  url: IRequestURL,
-  method: IRequestMethod,
-  schema?: Normalizr.SchemaType,
-  data?: IAnyObject
-): Promise<IApiData> {
+const callApi: ICallApi = function(url, method, schema, data) {
   const _url = typeof url === 'function' ? url() : url;
 
   return axios({ url: _url, method, data })
@@ -23,15 +18,6 @@ function callApi(
         receivedAt,
       };
     });
-}
-
-interface IApiData {
-  normalized?: {
-    result: (string | number)[],
-    entities: IAnyObject,
-  },
-  result?: IServerResponse,
-  receivedAt: number,
 }
 
 type IServerResponse = any;
