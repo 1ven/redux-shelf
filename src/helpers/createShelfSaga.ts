@@ -9,7 +9,7 @@ const createShelfSaga = function(
   callApiWrapper
 ) {
   return {
-    task: function* (requestAction) {
+    task: function* (requestAction): any {
       try {
         const responsePayload = yield call(callApiWrapper, requestAction.payload);
         yield put(success(assign(responsePayload, {

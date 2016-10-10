@@ -10,30 +10,28 @@ import createShelfSaga from './helpers/createShelfSaga';
 import createShelfActions from './helpers/createShelfActions';
 
 import createObject from './utils/createObject';
+import assign from './utils/assign';
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
 export default function createApis(apisConfigList) {
-  return mapValues(apisConfigList, (config = {
-    url,
-    method,
-    schema,
-    statePath,
-    responsePath,
-    shouldCreateSaga = true,
-  }, name) => ({
-    constants: createShelfConstants(name),
-    actions: createShelfActions(this.constants),
-    reducer: createShelfReducer(this.actions),
-    saga: createShelfSaga(this.actions, this.callApiWrapper),
-    callApiWrapper: requestPayload => callApi(url, method, schema, requestPayload),
-    name,
-    config,
-  }));
+  return mapValues(apisConfigList, (config, name) => {
+    const { url, method, schema, statePath, responsePath, shouldCreateSaga = true } = config;
+
+    return {
+      constants: createShelfConstants(name),
+      actions: createShelfActions(this.constants),
+      reducer: createShelfReducer(this.actions),
+      saga: createShelfSaga(this.actions, this.callApiWrapper),
+      callApiWrapper: requestPayload => callApi(url, method, schema, requestPayload),
+      name,
+      config,
+    };
+  });
 }
 
 export function handleSagas(apis) {
-  return reduce(apis, (acc, api) => !api.config.shouldCreateSaga ? acc : [
+  return reduce(apis, (acc, api: any) => !api.config.shouldCreateSaga ? acc : [
     ...acc,
     api.saga
   ], []);
@@ -50,10 +48,8 @@ export function handleActions(apis) {
 }
 
 export function handleConstants(apis) {
-  return reduce(apis, (acc, api) => ({
-    ...acc,
-    ...(api.constants.reduce((acc, c) => ({
-      ...acc, [c]: c
-    }), {})),
-  }), {});
+  return reduce(apis, (acc, api: any) => assign(
+    acc,
+    api.constants.reduce((acc, c) => assign(acc, { [c]: c }), {}),
+  ), {});
 }

@@ -15,7 +15,7 @@ const createShelfActions = function([request, success, failure]) {
         payload,
       };
     },
-    failure(payload? = {}) {
+    failure(payload: any = {}) {
       return {
         type: failure,
         payload: assign(payload, {
