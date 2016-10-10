@@ -25,8 +25,7 @@ function createApis(apisConfigList) {
         };
     });
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = createApis;
+exports.createApis = createApis;
 function handleSagas(apis) {
     return reduce(apis, (acc, api) => !api.config.shouldCreateSaga ? acc : [
         ...acc,
