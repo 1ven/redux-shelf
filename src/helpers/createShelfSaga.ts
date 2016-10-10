@@ -1,13 +1,13 @@
 import assign from '../utils/assign';
 
-import { IAsyncActions, IAction, ICallApiWrapper } from '../interfaces';
+/* import { IAsyncActions, IAction, ICallApiWrapper } from '../interfaces'; */
 
-function createShelfSaga(
-  { request, success, failure }: IAsyncActions,
-  callApiWrapper: ICallApiWrapper
+const createShelfSaga = function(
+  { request, success, failure },
+  callApiWrapper
 ) {
   return {
-    task: function* (requestAction: IAction) {
+    task: function* (requestAction) {
       try {
         const responsePayload = yield call(callApiWrapper, requestAction.payload);
         yield put(success(assign(responsePayload, {

@@ -11,16 +11,16 @@ import createShelfActions from './helpers/createShelfActions';
 
 import createObject from './utils/createObject';
 
-import { IApiConfigurationList, IApiConfiguration } from './interfaces';
+/* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
-export default function createApis(apisConfig: IApiConfigurationList) {
+export default function createApis(apisConfig) {
   return mapValues(apisConfig, (data = {
     url,
     name,
     method,
     schema,
     shouldCreateSaga = true,
-  }: IApiConfiguration) => ({
+  }) => ({
     constants: createShelfConstants(name),
     actions: createShelfActions(this.constants),
     reducer: createShelfReducer(this.actions),

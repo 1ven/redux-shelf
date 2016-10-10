@@ -13,7 +13,8 @@
   "dependencies": {
     "axios": "^0.14.0",
     "lodash": "^4.16.4",
-    "normalizr": "^2.2.1"
+    "normalizr": "^2.2.1",
+    "redux-saga": "^0.12.0"
   },
   "devDependencies": {
     "deep-freeze": "0.0.1",

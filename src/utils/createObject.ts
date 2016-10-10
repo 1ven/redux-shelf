@@ -1,4 +1,4 @@
-function createObject(path: string) {
+const createObject = function(path: string) {
   const propSeparator = '.';
 
   if (path.startsWith(propSeparator)) {

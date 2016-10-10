@@ -1,6 +1,6 @@
-import { IAnyObject } from '../interfaces';
+/* import { IAnyObject } from '../interfaces'; */
 
-function assign(a: IAnyObject, b: IAnyObject) {
+const assign = function(a, b) {
   return Object.assign({}, a, b);
 }
 

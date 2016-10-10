@@ -1,12 +1,12 @@
 import assign from '../utils/assign';
 import createReducer from './createReducer';
 
-import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces';
+/* import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces'; */
 
-function createShelfReducer(
-  [request, success, failure]: IAsyncActionTypes,
-  customState?: IAnyObject,
-  customMap?: IActionHandlersMap
+const createShelfReducer = function(
+  [request, success, failure],
+  customState?,
+  customMap?
 ) {
   return createReducer(
     assign(customState, {
@@ -15,15 +15,15 @@ function createShelfReducer(
       error: undefined,
     }),
     assign(customMap, {
-      [request]: (state: IState, payload: IActionPayload) => assign(state, {
+      [request]: (state, payload) => assign(state, {
         isFetching: true,
       }),
-      [success]: (state: IState, payload: IActionPayload) => assign(state, {
+      [success]: (state, payload) => assign(state, {
         isFetching: false,
         lastUpdated: payload.receivedAt,
         error: undefined,
       }),
-      [failure]: (state: IState, payload: IActionPayload) => assign(state, {
+      [failure]: (state, payload) => assign(state, {
         isFetching: false,
         error: payload.message,
       }),
@@ -31,10 +31,10 @@ function createShelfReducer(
   );
 }
 
-interface IState {
-  isFetching: boolean,
-  lastUpdated?: number,
-  error?: string,
-}
+/* interface IState { */
+/*   isFetching: boolean, */
+/*   lastUpdated?: number, */
+/*   error?: string, */
+/* } */
 
 export default createShelfReducer;

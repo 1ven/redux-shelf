@@ -1,8 +1,8 @@
-import { IAction, IActionType } from '../interfaces';
+/* import { IAction, IActionType } from '../interfaces'; */
 
-function createReducer(initialState: IState, map: IActionHandlersMap) {
-  return (state: IState = initialState, action: IAction) => {
-    for (let actionType: IActionType in map) {
+const createReducer = function (initialState, map) {
+  return (state = initialState, action) => {
+    for (let actionType in map) {
       if (actionType === action.type) {
         return map[actionType](state, action.payload);
       }
@@ -11,12 +11,12 @@ function createReducer(initialState: IState, map: IActionHandlersMap) {
   }
 }
 
-type IState = any;
+/* type IState = any; */
 
-type IActionHandler = (state: IState, payload?: any) => IState;
+/* type IActionHandler = (state: IState, payload?: any) => IState; */
 
-interface IActionHandlersMap {
-  [key: IActionType]: IActionHandler,
-}
+/* interface IActionHandlersMap { */
+/*   [key: IActionType]: IActionHandler, */
+/* } */
 
 export default createReducer;
