@@ -14,7 +14,7 @@ import assign from './utils/assign';
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
-export default function createApis(apisConfigList) {
+export function createApis(apisConfigList) {
   return mapValues(apisConfigList, (config, name) => {
     const { url, method, schema, statePath, responsePath, shouldCreateSaga = true } = config;
 
