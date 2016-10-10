@@ -1,4 +1,6 @@
 import assign from '../utils/assign';
+import { takeEvery } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
 
 /* import { IAsyncActions, IAction, ICallApiWrapper } from '../interfaces'; */
 
@@ -20,7 +22,7 @@ const createShelfSaga = function(
       }
     },
     watcher: function* () {
-      yield* takeEvery(request.type, this.task);
+      yield* takeEvery(request().type, this.task);
     },
   };
 }
