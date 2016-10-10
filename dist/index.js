@@ -14,12 +14,17 @@ const assign_1 = require('./utils/assign');
 function createApis(apisConfigList) {
     return mapValues(apisConfigList, (config, name) => {
         const { url, method, schema, statePath, responsePath, shouldCreateSaga = true } = config;
+        const callApiWrapper = requestPayload => callApi_1.default(url, method, schema, requestPayload);
+        const constants = createShelfConstants_1.default(name);
+        const actions = createShelfActions_1.default(constants);
+        const reducer = createShelfReducer_1.default(actions);
+        const saga = createShelfSaga_1.default(actions, callApiWrapper);
         return {
-            constants: createShelfConstants_1.default(name),
-            actions: createShelfActions_1.default(this.constants),
-            reducer: createShelfReducer_1.default(this.actions),
-            saga: createShelfSaga_1.default(this.actions, this.callApiWrapper),
-            callApiWrapper: requestPayload => callApi_1.default(url, method, schema, requestPayload),
+            constants,
+            actions,
+            reducer,
+            saga,
+            callApiWrapper,
             name,
             config,
         };

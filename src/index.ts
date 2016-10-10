@@ -18,12 +18,18 @@ export function createApis(apisConfigList) {
   return mapValues(apisConfigList, (config, name) => {
     const { url, method, schema, statePath, responsePath, shouldCreateSaga = true } = config;
 
+    const callApiWrapper = requestPayload => callApi(url, method, schema, requestPayload);
+    const constants = createShelfConstants(name);
+    const actions = createShelfActions(constants);
+    const reducer = createShelfReducer(actions);
+    const saga = createShelfSaga(actions, callApiWrapper);
+
     return {
-      constants: createShelfConstants(name),
-      actions: createShelfActions(this.constants),
-      reducer: createShelfReducer(this.actions),
-      saga: createShelfSaga(this.actions, this.callApiWrapper),
-      callApiWrapper: requestPayload => callApi(url, method, schema, requestPayload),
+      constants,
+      actions,
+      reducer,
+      saga,
+      callApiWrapper,
       name,
       config,
     };

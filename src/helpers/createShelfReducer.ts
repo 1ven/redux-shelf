@@ -4,7 +4,7 @@ import createReducer from './createReducer';
 /* import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces'; */
 
 const createShelfReducer = function(
-  [request, success, failure],
+  [request, success, failure]: any,
   customState?,
   customMap?
 ) {
