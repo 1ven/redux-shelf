@@ -47,7 +47,7 @@ function createApis(apisConfigList) {
 exports.createApis = createApis;
 function handleSagas(apis) {
     return reduce(apis, function (acc, api) {
-        return !api.config.shouldCreateSaga ? acc : [].concat(_toConsumableArray(acc), [api.saga]);
+        return !api.config.shouldCreateSaga ? acc : [].concat(_toConsumableArray(acc), [api.saga.watcher()]);
     }, []);
 }
 exports.handleSagas = handleSagas;

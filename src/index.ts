@@ -39,7 +39,7 @@ export function createApis(apisConfigList) {
 export function handleSagas(apis) {
   return reduce(apis, (acc, api: any) => !api.config.shouldCreateSaga ? acc : [
     ...acc,
-    api.saga
+    api.saga.watcher(),
   ], []);
 }
 
