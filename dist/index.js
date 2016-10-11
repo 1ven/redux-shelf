@@ -30,12 +30,12 @@ function createApis(apisConfigList) {
             return callApi_1.default(url, method, schema, requestPayload);
         };
         var constants = createShelfConstants_1.default(name);
-        var actions = createShelfActions_1.default(constants);
-        var reducer = createShelfReducer_1.default(actions);
-        var saga = createShelfSaga_1.default(actions, callApiWrapper);
+        var actionsCreators = createShelfActions_1.default(constants);
+        var reducer = createShelfReducer_1.default(constants);
+        var saga = createShelfSaga_1.default(actionsCreators, callApiWrapper);
         return {
             constants: constants,
-            actions: actions,
+            actionsCreators: actionsCreators,
             reducer: reducer,
             saga: saga,
             callApiWrapper: callApiWrapper,
@@ -60,7 +60,7 @@ function handleReducers(apis) {
 exports.handleReducers = handleReducers;
 function handleActions(apis) {
     return mapValues(apis, function (api) {
-        return api.actions;
+        return api.actionsCreators;
     });
 }
 exports.handleActions = handleActions;

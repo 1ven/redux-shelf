@@ -20,13 +20,13 @@ export function createApis(apisConfigList) {
 
     const callApiWrapper = requestPayload => callApi(url, method, schema, requestPayload);
     const constants = createShelfConstants(name);
-    const actions = createShelfActions(constants);
-    const reducer = createShelfReducer(actions);
-    const saga = createShelfSaga(actions, callApiWrapper);
+    const actionsCreators = createShelfActions(constants);
+    const reducer = createShelfReducer(constants);
+    const saga = createShelfSaga(actionsCreators, callApiWrapper);
 
     return {
       constants,
-      actions,
+      actionsCreators,
       reducer,
       saga,
       callApiWrapper,
@@ -50,7 +50,7 @@ export function handleReducers(apis) {
 }
 
 export function handleActions(apis) {
-  return mapValues(apis, api => api.actions);
+  return mapValues(apis, api => api.actionsCreators);
 }
 
 export function handleConstants(apis) {
