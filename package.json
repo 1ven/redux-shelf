@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "postinstall": "typings install",
-    "build": "tsc --project ."
+    "build": "tsc --project . && babel __temp__ --out-dir dist && rm -rf ./__temp__"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,8 @@
     "redux-saga": "^0.12.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
     "deep-freeze": "0.0.1",
     "jest-cli": "^16.0.1",
     "typescript": "^2.0.3",

@@ -1,18 +1,20 @@
 "use strict";
-const axios = require('axios');
-const normalizr_1 = require('normalizr');
+
+var axios = require('axios');
+var normalizr_1 = require('normalizr');
 /* import { ICallApi } from '../interfaces'; */
-const callApi = function (url, method, schema, data) {
-    const _url = typeof url === 'function' ? url() : url;
-    return axios({ url: _url, method, data })
-        .then(({ data }) => {
-        const receivedAt = Date.now();
+var callApi = function callApi(url, method, schema, data) {
+    var _url = typeof url === 'function' ? url() : url;
+    return axios({ url: _url, method: method, data: data }).then(function (_ref) {
+        var data = _ref.data;
+
+        var receivedAt = Date.now();
         return schema ? {
             normalized: normalizr_1.normalize(data, schema),
-            receivedAt,
+            receivedAt: receivedAt
         } : {
             result: data,
-            receivedAt,
+            receivedAt: receivedAt
         };
     });
 };
