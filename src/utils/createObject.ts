@@ -1,4 +1,4 @@
-const createObject = function(path: string) {
+const createObject = function(path: string, endpointValue: any = {}) {
   const propSeparator = '.';
 
   if (path.startsWith(propSeparator)) {
@@ -11,7 +11,7 @@ const createObject = function(path: string) {
 
   if (!path.includes(propSeparator)) {
     return {
-      [path]: {},
+      [path]: endpointValue,
     };
   }
 
@@ -20,7 +20,7 @@ const createObject = function(path: string) {
   const tail = path.slice(firstSeparatorIndex + 1);
 
   return {
-    [head]: createObject(tail),
+    [head]: createObject(tail, endpointValue),
   };
 }
 

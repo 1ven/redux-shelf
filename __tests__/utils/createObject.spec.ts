@@ -10,7 +10,7 @@ describe('createObject', () => {
   it('should create object by given two level deep path string', () => {
     expect(createObject('a.b')).toEqual({
       a: {
-        b: {}
+        b: {},
       },
     });
   });
@@ -19,7 +19,31 @@ describe('createObject', () => {
     expect(createObject('a.b.c')).toEqual({
       a: {
         b: {
-          c: {}
+          c: {},
+        }
+      },
+    });
+  });
+
+  it('should create object by given one level deep path string and endpoint value', () => {
+    expect(createObject('a', 5)).toEqual({
+      a: 5,
+    });
+  });
+
+  it('should create object by given two level deep path string and endpoint value', () => {
+    expect(createObject('a.b', 3)).toEqual({
+      a: {
+        b: 3,
+      },
+    });
+  });
+
+  it('should create object by given three level deep path string and endpoint value', () => {
+    expect(createObject('a.b.c', 8)).toEqual({
+      a: {
+        b: {
+          c: 8,
         }
       },
     });
