@@ -48,11 +48,13 @@ describe('createShelfReducer', () => {
       type: actions[1],
       payload: {
         receivedAt: 1,
+        result: ['item_1', 'item_2'],
       },
     })).toEqual({
       isFetching: false,
       error: undefined,
       lastUpdated: 1,
+      data: ['item_1', 'item_2'],
     });
   });
 
