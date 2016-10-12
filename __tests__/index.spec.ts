@@ -1,4 +1,4 @@
-import { handleReducers, handleActions, handleConstants } from '../src';
+import { handleReducers, handleActions, handleConstants, handleSagas } from '../src';
 
 describe('handleReducers', () => {
   it('should return reducers tree by given input object', () => {
@@ -105,5 +105,41 @@ describe('handleConstants', () => {
       FETCH_REPOS_SUCCESS: 'FETCH_REPOS_SUCCESS',
       FETCH_REPOS_FAILURE: 'FETCH_REPOS_FAILURE',
     });
+  });
+});
+
+describe('handleSagas', () => {
+  it('should create sagas array', () => {
+    const apis = {
+      fetchTodos: {
+        saga: {
+          watcher: () => 'fetchTodosSagaWatcher',
+        },
+        config: {
+          shouldCreateSaga: true,
+        },
+      },
+      fetchArticles: {
+        saga: {
+          watcher: () => 'fetchArticlesSagaWatcher',
+        },
+        config: {
+          shouldCreateSaga: true,
+        },
+      },
+      fetchRepos: {
+        saga: {
+          watcher: () => 'fetchReposSagaWatcher',
+        },
+        config: {
+          shouldCreateSaga: true,
+        },
+      },
+    };
+    expect(handleSagas(apis)).toEqual([
+      'fetchTodosSagaWatcher',
+      'fetchArticlesSagaWatcher',
+      'fetchReposSagaWatcher',
+    ]);
   });
 });
