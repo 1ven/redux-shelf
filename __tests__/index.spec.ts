@@ -1,4 +1,4 @@
-import { handleReducers, handleActions } from '../src';
+import { handleReducers, handleActions, handleConstants } from '../src';
 
 describe('handleReducers', () => {
   it('should return reducers tree by given input object', () => {
@@ -65,6 +65,45 @@ describe('handleActions', () => {
     expect(handleActions(apis)).toEqual({
       fetchTodos: 'fetchTodosActionsCreators',
       fetchArticles: 'fetchArticlesActionsCreators',
+    });
+  });
+});
+
+describe('handleConstants', () => {
+  it('should return constants object', () => {
+    const apis = {
+      fetchTodos: {
+        constants: [
+          'FETCH_TODOS_REQUEST',
+          'FETCH_TODOS_SUCCESS',
+          'FETCH_TODOS_FAILURE',
+        ],
+      },
+      fetchArticles: {
+        constants: [
+          'FETCH_ARTICLES_REQUEST',
+          'FETCH_ARTICLES_SUCCESS',
+          'FETCH_ARTICLES_FAILURE',
+        ],
+      },
+      fetchRepos: {
+        constants: [
+          'FETCH_REPOS_REQUEST',
+          'FETCH_REPOS_SUCCESS',
+          'FETCH_REPOS_FAILURE',
+        ],
+      },
+    };
+    expect(handleConstants(apis)).toEqual({
+      FETCH_TODOS_REQUEST: 'FETCH_TODOS_REQUEST',
+      FETCH_TODOS_SUCCESS: 'FETCH_TODOS_SUCCESS',
+      FETCH_TODOS_FAILURE: 'FETCH_TODOS_FAILURE',
+      FETCH_ARTICLES_REQUEST: 'FETCH_ARTICLES_REQUEST',
+      FETCH_ARTICLES_SUCCESS: 'FETCH_ARTICLES_SUCCESS',
+      FETCH_ARTICLES_FAILURE: 'FETCH_ARTICLES_FAILURE',
+      FETCH_REPOS_REQUEST: 'FETCH_REPOS_REQUEST',
+      FETCH_REPOS_SUCCESS: 'FETCH_REPOS_SUCCESS',
+      FETCH_REPOS_FAILURE: 'FETCH_REPOS_FAILURE',
     });
   });
 });
