@@ -18,8 +18,10 @@ var createShelfReducer = function createShelfReducer(_ref, customState, customMa
 
     return createReducer_1.default(assign_1.default(customState, {
         isFetching: false,
+        // may be remove these undefined props, as we are will be using interface
         lastUpdated: undefined,
-        error: undefined
+        error: undefined,
+        data: undefined
     }), assign_1.default(customMap, (_assign_1$default = {}, _defineProperty(_assign_1$default, request, function (state, payload) {
         return assign_1.default(state, {
             isFetching: true
@@ -28,7 +30,8 @@ var createShelfReducer = function createShelfReducer(_ref, customState, customMa
         return assign_1.default(state, {
             isFetching: false,
             lastUpdated: payload.receivedAt,
-            error: undefined
+            error: undefined,
+            data: payload.result
         });
     }), _defineProperty(_assign_1$default, failure, function (state, payload) {
         return assign_1.default(state, {
