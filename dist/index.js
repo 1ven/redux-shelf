@@ -53,8 +53,9 @@ function handleSagas(apis) {
 exports.handleSagas = handleSagas;
 function handleReducers(apis) {
     return reduce(apis, function (acc, _ref) {
+        var reducer = _ref.reducer;
         var statePath = _ref.config.statePath;
-        return !statePath ? acc : merge({}, acc, createObject_1.default(statePath));
+        return !statePath ? acc : merge({}, acc, createObject_1.default(statePath, reducer));
     }, {});
 }
 exports.handleReducers = handleReducers;
