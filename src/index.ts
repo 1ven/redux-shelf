@@ -15,8 +15,12 @@ import assign from './utils/assign';
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
 export function createApis(apisConfigList) {
-  return mapValues(apisConfigList, (config, name) => {
-    const { url, method, schema, statePath, responsePath, shouldCreateSaga = true } = config;
+  return mapValues(apisConfigList, (inputConfig, name) => {
+    const config = assign({
+      shouldCreateSaga: true,
+    }, inputConfig);
+
+    const { url, method, schema } = config;
 
     const callApiWrapper = requestPayload => callApi(url, method, schema, requestPayload);
     const constants = createShelfConstants(name);

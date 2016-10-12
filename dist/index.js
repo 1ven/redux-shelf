@@ -17,14 +17,13 @@ var createObject_1 = require('./utils/createObject');
 var assign_1 = require('./utils/assign');
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 function createApis(apisConfigList) {
-    return mapValues(apisConfigList, function (config, name) {
+    return mapValues(apisConfigList, function (inputConfig, name) {
+        var config = assign_1.default({
+            shouldCreateSaga: true
+        }, inputConfig);
         var url = config.url;
         var method = config.method;
         var schema = config.schema;
-        var statePath = config.statePath;
-        var responsePath = config.responsePath;
-        var _config$shouldCreateS = config.shouldCreateSaga;
-        var shouldCreateSaga = _config$shouldCreateS === undefined ? true : _config$shouldCreateS;
 
         var callApiWrapper = function callApiWrapper(requestPayload) {
             return callApi_1.default(url, method, schema, requestPayload);
