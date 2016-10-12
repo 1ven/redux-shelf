@@ -44,7 +44,12 @@ export function handleSagas(apis) {
 }
 
 export function handleReducers(apis) {
-  return reduce(apis, (acc, { reducer, config: { statePath } }) => (
+  return reduce(apis, (acc, {
+    reducer,
+    config: {
+      statePath,
+    }
+  }) => (
     !statePath ? acc : merge({}, acc, createObject(statePath, reducer))
   ), {});
 }
