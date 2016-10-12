@@ -1,4 +1,4 @@
-import { handleReducers } from '../src';
+import { handleReducers, handleActions } from '../src';
 
 describe('handleReducers', () => {
   it('should return reducers tree by given input object', () => {
@@ -48,6 +48,23 @@ describe('handleReducers', () => {
         todos: 'todosReducer',
       },
       notifications: 'notificationsReducer',
+    });
+  });
+});
+
+describe('handleActions', () => {
+  it('should return actions creators object', () => {
+    const apis = {
+      fetchTodos: {
+        actionsCreators: 'fetchTodosActionsCreators',
+      },
+      fetchArticles: {
+        actionsCreators: 'fetchArticlesActionsCreators',
+      },
+    };
+    expect(handleActions(apis)).toEqual({
+      fetchTodos: 'fetchTodosActionsCreators',
+      fetchArticles: 'fetchArticlesActionsCreators',
     });
   });
 });
