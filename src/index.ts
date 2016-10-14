@@ -48,14 +48,10 @@ export function handleSagas(apis) {
 }
 
 export function handleReducers(apis) {
-  return reduce(apis, (acc, {
-    reducer,
-    config: {
-      state: { path } = {},
-    }
-  }) => (
-    !path ? acc : merge({}, acc, createObject(path, reducer))
-  ), {});
+  return reduce(apis, (acc, { reducer, config }) => {
+    const path = config.state && config.state.path;
+    return !path ? acc : merge({}, acc, createObject(path, reducer));
+  }, {});
 }
 
 export function handleActions(apis) {
