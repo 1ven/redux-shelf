@@ -1,3 +1,4 @@
+import * as identity from 'lodash/identity';
 import assign from '../utils/assign';
 import createReducer from './createReducer';
 
@@ -7,7 +8,7 @@ const createShelfReducer = function(
   [ request, success, failure ]: any,
   customState?,
   customMap?,
-  responseMap?
+  responseMap = identity
 ) {
   return createReducer(
     assign(customState, {
@@ -25,11 +26,7 @@ const createShelfReducer = function(
         isFetching: false,
         lastUpdated: payload.receivedAt,
         error: undefined,
-        data: !responseMap ? (
-          payload.result
-        ) : (
-          responseMap(payload.result)
-        ),
+        data: responseMap(payload.result),
       }),
       [failure]: (state, payload) => assign(state, {
         isFetching: false,
