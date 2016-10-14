@@ -22,11 +22,11 @@ export function createApis(apisConfigList) {
 
     const { url, method, schema } = config;
 
-    const callApiWrapper = requestPayload => callApi(url, method, schema, requestPayload);
+    const callApiWrapper = requestPayload => callApi(url, method, requestPayload);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer(constants);
-    const saga = createShelfSaga(actionsCreators, callApiWrapper);
+    const saga = createShelfSaga(actionsCreators, callApiWrapper, schema);
 
     return {
       constants,
