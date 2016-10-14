@@ -51,10 +51,10 @@ export function handleReducers(apis) {
   return reduce(apis, (acc, {
     reducer,
     config: {
-      statePath,
+      state: { path } = {},
     }
   }) => (
-    !statePath ? acc : merge({}, acc, createObject(statePath, reducer))
+    !path ? acc : merge({}, acc, createObject(path, reducer))
   ), {});
 }
 

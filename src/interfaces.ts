@@ -27,9 +27,11 @@ export interface IApiConfiguration {
   url: IRequestURL,
   method: IRequestMethod,
   schema?: Normalizr.SchemaType,
-  statePath?: string,
-  responsePath?: string,
   shouldCreateSaga?: boolean,
+  state?: {
+    path: string,
+    responseMap?: (response: any) => any,
+  },
 }
 
 export interface IShelfData {

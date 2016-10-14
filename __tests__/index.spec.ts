@@ -6,31 +6,41 @@ describe('handleReducers', () => {
       fetchTodos: {
         reducer: 'todosReducer',
         config: {
-          statePath: 'data.todos',
+          state: {
+            path: 'data.todos',
+          },
         },
       },
       fetchUsers: {
         reducer: 'usersReducer',
         config: {
-          statePath: 'data.users',
+          state: {
+            path: 'data.users',
+          },
         },
       },
       fetchRecentArticles: {
         reducer: 'recentArticles',
         config: {
-          statePath: 'data.articles.recent',
+          state: {
+            path: 'data.articles.recent',
+          },
         },
       },
       fetchPopularArticles: {
         reducer: 'popularArticles',
         config: {
-          statePath: 'data.articles.popular',
+          state: {
+            path: 'data.articles.popular',
+          },
         },
       },
       fetchNotifications: {
         reducer: 'notificationsReducer',
         config: {
-          statePath: 'notifications',
+          state: {
+            path: 'notifications',
+          },
         },
       },
       fetchIndexPage: {
