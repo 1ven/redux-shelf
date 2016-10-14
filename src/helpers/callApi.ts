@@ -7,7 +7,7 @@ const callApi = function(url, method, data) {
     .then(({ data }) => ({
       result: data,
       receivedAt: Date.now(),
-    });
+    }));
 }
 
 /* type IServerResponse = any; */
