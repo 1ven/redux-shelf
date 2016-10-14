@@ -109,4 +109,18 @@ describe('createShelfReducer', () => {
       todos: ['first', 'second'],
     });
   });
+
+  it('should create reducer, which wraps `data` with provided `responseMap` function while handling SUCCESS action', () => {
+    const reducer = createShelfReducer(actions, undefined, undefined, response => response.user);
+
+    expect(reducer(undefined, {
+      type: 'FETCH_TODOS_SUCCESS',
+      payload: {
+        result: {
+          user: 'test user',
+          otherData: 'some other data',
+        },
+      },
+    }).data).toBe('test user');
+  });
 });

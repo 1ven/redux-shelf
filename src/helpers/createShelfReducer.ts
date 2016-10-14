@@ -6,7 +6,8 @@ import createReducer from './createReducer';
 const createShelfReducer = function(
   [ request, success, failure ]: any,
   customState?,
-  customMap?
+  customMap?,
+  responseMap?
 ) {
   return createReducer(
     assign(customState, {
@@ -24,7 +25,11 @@ const createShelfReducer = function(
         isFetching: false,
         lastUpdated: payload.receivedAt,
         error: undefined,
-        data: payload.result,
+        data: !responseMap ? (
+          payload.result
+        ) : (
+          responseMap(payload.result)
+        ),
       }),
       [failure]: (state, payload) => assign(state, {
         isFetching: false,
