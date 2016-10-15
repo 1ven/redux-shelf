@@ -1,5 +1,5 @@
 const replaceParams = function(pattern, params) {
-  return pattern.replace(/:[a-z]*/g, match => {
+  return pattern.replace(/:[a-z]+/g, match => {
     const matchedParam = match.substr(1);
     const value = params[matchedParam];
 

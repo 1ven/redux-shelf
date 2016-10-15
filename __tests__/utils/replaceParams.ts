@@ -6,6 +6,11 @@ describe('replaceParams', () => {
       id: 1,
       title: 'test',
     })).toBe('/1/test');
+
+    expect(replaceParams('http://site.com/:id/:title', {
+      id: 1,
+      title: 'test',
+    })).toBe('http://site.com/1/test');
   });
 
   it('should throw an Error if matched param is not exists at `params` object', () => {
