@@ -7,10 +7,31 @@ export interface IAction {
   payload?: IActionPayload,
 }
 
+export interface IRequestAction extends IAction {
+  payload?: {
+    requestParams?: IAnyObject,
+    requestData?: IAnyObject,
+  },
+}
+
+export interface ISuccessAction extends IAction {
+  payload: {
+    result: IAnyObject,
+    receivedAt: number,
+    entities?: IAnyObject,
+  },
+}
+
+export interface IFailureAction extends IAction {
+  payload: {
+    message: string,
+  },
+}
+
 export interface IAsyncActions {
-  request: IAction,
-  success: IAction,
-  failure: IAction,
+  request: IRequestAction,
+  success: ISuccessAction,
+  failure: IFailureAction,
 }
 
 export interface IAsyncActionTypes {
