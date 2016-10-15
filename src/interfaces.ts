@@ -53,6 +53,9 @@ export interface IApiConfiguration {
     path: string,
     responseMap?: (response: any) => any,
   },
+  settings?: {
+    apiRoot?: string,
+  },
 }
 
 export interface IShelfData {

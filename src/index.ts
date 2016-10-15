@@ -11,6 +11,7 @@ import createShelfActions from './helpers/createShelfActions';
 
 import createObject from './utils/createObject';
 import assign from './utils/assign';
+import resolveUrl from './utils/resolveUrl';
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
@@ -20,9 +21,11 @@ export function createApis(apisConfigList) {
       shouldCreateSaga: true,
     }, inputConfig);
 
-    const { url, method, schema } = config;
+    const { url, method, schema, settings } = config;
+    const apiRoot = settings && settings.apiRoot;
+    const fullUrl = !apiRoot ? url : resolveUrl(apiRoot, url);
 
-    const callApiHandler = createCallApiHandler(url, method);
+    const callApiHandler = createCallApiHandler(fullUrl, method);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer(constants);
