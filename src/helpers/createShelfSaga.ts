@@ -3,24 +3,24 @@ import { normalize } from 'normalizr';
 import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
-/* import { IAsyncActions, IAction, ICallApiWrapper } from '../interfaces'; */
+/* import { IAsyncActions, IAction, ICallApiHandler } from '../interfaces'; */
 
 const createShelfSaga = function(
   { request, success, failure },
-  callApiWrapper,
+  callApiHandler,
   schema
 ) {
   return {
-    task: function* (requestAction): any {
+    task: function* ({ payload }): any {
       try {
-        const responseData = yield call(callApiWrapper, requestAction.payload);
+        const wrappedResponseBody = yield call(callApiHandler, payload);
 
-        const responsePayload = !schema ? responseData : assign(normalize(responseData, schema), {
-          receivedAt: responseData.receivedAt,
+        const responsePayload = !schema ? wrappedResponseBody : assign(normalize(wrappedResponseBody, schema), {
+          receivedAt: wrappedResponseBody.receivedAt,
         });
 
         yield put(success(assign(responsePayload, {
-          requestPayload: requestAction.payload,
+          requestPayload: payload,
         })));
       } catch(err) {
         yield put(failure({
