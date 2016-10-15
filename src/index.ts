@@ -3,7 +3,7 @@ import * as merge from 'lodash/merge';
 import * as reduce from 'lodash/reduce';
 import * as mapValues from 'lodash/mapValues';
 
-import callApi from './helpers/callApi';
+import createCallApiHandler from './helpers/createCallApiHandler';
 import createShelfConstants from './helpers/createShelfConstants';
 import createShelfReducer from './helpers/createShelfReducer';
 import createShelfSaga from './helpers/createShelfSaga';
@@ -22,18 +22,18 @@ export function createApis(apisConfigList) {
 
     const { url, method, schema } = config;
 
-    const callApiWrapper = requestPayload => callApi(url, method, requestPayload);
+    const callApiHandler = createCallApiHandler(url, method);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer(constants);
-    const saga = createShelfSaga(actionsCreators, callApiWrapper, schema);
+    const saga = createShelfSaga(actionsCreators, callApiHandler, schema);
 
     return {
       constants,
       actionsCreators,
       reducer,
       saga,
-      callApiWrapper,
+      callApiHandler,
       name,
       config,
     };
