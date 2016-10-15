@@ -4,7 +4,7 @@ const replaceParams = function(pattern, params) {
     const value = params[matchedParam];
 
     if (typeof value === 'undefined') {
-      throw new Error(`Matched param is not presented at given object`);
+      throw new Error(`Matched param "${matchedParam}" is not presented at given object`);
     }
 
     return value;

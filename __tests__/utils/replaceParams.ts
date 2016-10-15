@@ -12,7 +12,7 @@ describe('replaceParams', () => {
     expect(() => replaceParams('/:id/:title', {
       id: 1,
     })).toThrow(
-      `Matched param is not presented at given object`
+      `Matched param "title" is not presented at given object`
     );
   });
 });
