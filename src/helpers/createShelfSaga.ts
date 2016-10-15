@@ -23,9 +23,7 @@ const createShelfSaga = function(
           requestPayload: payload,
         })));
       } catch(err) {
-        if (process && process.env && process.env.NODE_ENV === 'development') {
-          console.error(err);
-        }
+        console.error(err);
 
         yield put(failure({
           message: err.message,
