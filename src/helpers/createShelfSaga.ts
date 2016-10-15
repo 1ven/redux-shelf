@@ -24,7 +24,7 @@ const createShelfSaga = function(
         })));
       } catch(err) {
         if (process && process.env && process.env.NODE_ENV === 'development') {
-          console.error(err);
+          console.warn(err);
         }
 
         yield put(failure({
