@@ -15,14 +15,15 @@ import resolveUrl from './utils/resolveUrl';
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 
-export function createApis(apisConfigList) {
+export function createApis(apisConfigList, settings?) {
+  const apiRoot = settings && settings.apiRoot;
+
   return mapValues(apisConfigList, (inputConfig, name) => {
     const config = assign({
       shouldCreateSaga: true,
     }, inputConfig);
 
-    const { url, method, schema, settings } = config;
-    const apiRoot = settings && settings.apiRoot;
+    const { url, method, schema } = config;
     const fullUrl = !apiRoot ? url : resolveUrl(apiRoot, url);
 
     const callApiHandler = createCallApiHandler(fullUrl, method);
