@@ -8,7 +8,7 @@
   },
   "files": [
     "./typings/index.d.ts",
-    "./modules.ts",
+    "./modules.d.ts",
     "./src/index.ts"
   ]
 }
