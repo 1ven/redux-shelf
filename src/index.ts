@@ -63,7 +63,7 @@ export function handleActions(apis) {
   return mapValues(apis, api => api.actionsCreators);
 }
 
-export function handleConstants(apis, customConstants) {
+export function handleConstants(apis, customConstants?) {
   return assign(
     reduce(apis, (acc, api: any) => assign(
       acc,

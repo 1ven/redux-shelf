@@ -116,6 +116,27 @@ describe('handleConstants', () => {
       FETCH_REPOS_FAILURE: 'FETCH_REPOS_FAILURE',
     });
   });
+
+  it('should assign custom constants with returned constants object', () => {
+    const apis = {
+      fetchTodos: {
+        constants: [
+          'FETCH_TODOS_REQUEST',
+          'FETCH_TODOS_SUCCESS',
+          'FETCH_TODOS_FAILURE',
+        ],
+      },
+    };
+
+    expect(handleConstants(apis, {
+      NOTIFICATIONS_ADD: 'NOTIFICATIONS_ADD',
+    })).toEqual({
+      FETCH_TODOS_REQUEST: 'FETCH_TODOS_REQUEST',
+      FETCH_TODOS_SUCCESS: 'FETCH_TODOS_SUCCESS',
+      FETCH_TODOS_FAILURE: 'FETCH_TODOS_FAILURE',
+      NOTIFICATIONS_ADD: 'NOTIFICATIONS_ADD',
+    });
+  });
 });
 
 describe('handleSagas', () => {
