@@ -11,7 +11,7 @@
 import * as reduce from 'lodash/reduce';
 
 const transformState = function(state, action, map) {
-  return reduce(map, (prevState, transformer, actionType) => (
+  return reduce(map, (prevState, transformer: ITransformer, actionType) => (
     actionType === action.type ? (
       transformer(prevState, action.payload)
     ) : (
@@ -24,8 +24,11 @@ const createReducer = function(initialState, ...maps) {
   return (state = initialState, action) => (
     reduce(maps, (prevState, map) => (
       transformState(prevState, action, map)
-    ), state);
+    ), state)
   );
 }
+
+/* type ITransformer<S> (state: S, payload: any) => S; */
+type ITransformer = (state: any, payload: any) => any;
 
 export default createReducer;
