@@ -2,8 +2,6 @@
 
 /* type IState = any; */
 
-/* type IActionHandler = (state: IState, payload?: any) => IState; */
-
 /* interface IActionHandlersMap { */
 /*   [key: IActionType]: IActionHandler, */
 /* } */
@@ -13,7 +11,7 @@ import * as reduce from 'lodash/reduce';
 const transformState = function(state, action, map) {
   return reduce(map, (prevState, transformer: ITransformer, actionType) => (
     actionType === action.type ? (
-      transformer(prevState, action.payload)
+      transformer(prevState, action)
     ) : (
       prevState
     )
@@ -28,7 +26,7 @@ const createReducer = function(initialState, ...maps) {
   );
 }
 
-/* type ITransformer<S> (state: S, payload: any) => S; */
-type ITransformer = (state: any, payload: any) => any;
+/* type ITransformer<S> (state: S, action: any) => S; */
+type ITransformer = (state: any, action: any) => any;
 
 export default createReducer;

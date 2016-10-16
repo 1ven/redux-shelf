@@ -7,14 +7,14 @@ const reducer = createReducer({
   isFetching: false,
   error: undefined,
 }, {
-  'FETCH_TODOS_REQUEST': (state, payload) => assign({}, state, {
+  'FETCH_TODOS_REQUEST': state => assign({}, state, {
     isFetching: true,
   }),
-  'FETCH_TODOS_SUCCESS': (state, payload) => assign({}, state, {
+  'FETCH_TODOS_SUCCESS': (state, { payload }) => assign({}, state, {
     isFetching: false,
     todos: [...state.todos, payload.todos],
   }),
-  'FETCH_TODOS_FAILURE': (state, payload) => assign({}, state, {
+  'FETCH_TODOS_FAILURE': (state, { payload }) => assign({}, state, {
     isFetching: false,
     error: payload.error,
   }),
@@ -72,11 +72,11 @@ describe('createReducer', () => {
     const reducer = createReducer({
       data: [],
     }, {
-      'ADD_DATA': (state, payload) => assign({}, state, {
+      'ADD_DATA': (state, { payload }) => assign({}, state, {
         data: [...state.data, payload + 1],
       }),
     }, {
-      'ADD_DATA': (state, payload) => assign({}, state, {
+      'ADD_DATA': (state, { payload }) => assign({}, state, {
         data: [...state.data, payload + 4],
       }),
     });

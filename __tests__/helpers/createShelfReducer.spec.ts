@@ -7,6 +7,7 @@ const actions = [
   'FETCH_TODOS_SUCCESS',
   'FETCH_TODOS_FAILURE',
 ];
+
 describe('createShelfReducer', () => {
   it('should create reducer which returns initial state for async data', () => {
     const reducer = createShelfReducer(actions);
@@ -92,7 +93,7 @@ describe('createShelfReducer', () => {
     const reducer = createShelfReducer(actions, {
       todos: ['first'],
     }, {
-      'CREATE_TODO_SUCCESS': (state, payload) => assign({}, state, {
+      'CREATE_TODO_SUCCESS': (state, { payload }) => assign({}, state, {
         todos: [...state.todos, payload.todo],
       }),
     });
@@ -112,7 +113,7 @@ describe('createShelfReducer', () => {
 
   it('should create reducer with custom action types mappings, which contains already mapping action type', () => {
     const reducer = createShelfReducer(actions, undefined, {
-      [actions[1]]: (state, payload) => assign({}, state, {
+      [actions[1]]: state => assign({}, state, {
         value: 'some additional value',
       }),
     });

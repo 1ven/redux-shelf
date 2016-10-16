@@ -19,16 +19,16 @@ const createShelfReducer = function(
       data: undefined,
     }, customState),
     {
-      [request]: (state, payload) => assign(state, {
+      [request]: (state, { payload }) => assign(state, {
         isFetching: true,
       }),
-      [success]: (state, payload) => assign(state, {
+      [success]: (state, { payload }) => assign(state, {
         isFetching: false,
         lastUpdated: payload.receivedAt,
         error: undefined,
         data: responseMap(payload.result),
       }),
-      [failure]: (state, payload) => assign(state, {
+      [failure]: (state, { payload }) => assign(state, {
         isFetching: false,
         error: payload.message,
       }),
