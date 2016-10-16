@@ -1,5 +1,5 @@
 /* import { IActionPayload, IAsyncActionTypes, IAsyncActions } from '../interfaces'; */
-import assign from '../utils/assign';
+import { assign } from '../utils';
 
 const createShelfActions = function([request, success, failure]: any) {
   return {

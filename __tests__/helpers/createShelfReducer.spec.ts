@@ -1,6 +1,6 @@
 import * as deepFreeze from 'deep-freeze';
 import * as assign from 'lodash/assign';
-import createShelfReducer from '../../src/helpers/createShelfReducer';
+import { createShelfReducer } from '../../src/helpers';
 
 const actions = [
   'FETCH_TODOS_REQUEST',

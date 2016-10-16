@@ -1,5 +1,5 @@
 import * as deepFreeze from 'deep-freeze';
-import assign from '../../src/utils/assign';
+import { assign } from '../../src/utils';
 
 describe('assign', () => {
   it('should merge two objects and return new object', () => {

@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 import * as isEmpty from 'lodash/isEmpty';
-import replaceParams from '../utils/replaceParams';
+import { replaceParams } from '../utils';
 
 /* import { ICallApi } from '../interfaces'; */
 

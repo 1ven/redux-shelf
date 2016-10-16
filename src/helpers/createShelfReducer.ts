@@ -1,6 +1,6 @@
 import * as identity from 'lodash/identity';
-import assign from '../utils/assign';
 import createReducer from './createReducer';
+import { assign } from '../utils';
 
 /* import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces'; */
 

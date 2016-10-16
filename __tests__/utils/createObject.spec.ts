@@ -1,4 +1,4 @@
-import createObject from '../../src/utils/createObject';
+import { createObject } from '../../src/utils';
 
 describe('createObject', () => {
   it('should create object by given one level deep path string', () => {

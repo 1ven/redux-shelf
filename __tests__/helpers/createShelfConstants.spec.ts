@@ -1,4 +1,4 @@
-import createShelfConstants from '../../src/helpers/createShelfConstants';
+import { createShelfConstants } from '../../src/helpers';
 
 describe('createShelfConstants', () => {
   it('should create constants array for async actions', () => {

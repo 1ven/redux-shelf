@@ -1,6 +1,6 @@
 import * as assign from 'lodash/assign';
 import * as deepFreeze from 'deep-freeze';
-import createReducer from '../../src/helpers/createReducer';
+import { createReducer } from '../../src/helpers';
 
 const reducer = createReducer({
   todos: [],

@@ -1,4 +1,4 @@
-import camelToSnake from '../utils/camelToSnake';
+import { camelToSnake } from '../utils';
 
 /* import { IApiName, IAsyncActionTypes } from '../interfaces'; */
 

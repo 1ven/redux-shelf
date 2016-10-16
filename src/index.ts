@@ -1,19 +1,22 @@
-// rename `data` variable
 import * as merge from 'lodash/merge';
 import * as reduce from 'lodash/reduce';
 import * as mapValues from 'lodash/mapValues';
 
-import createCallApiHandler from './helpers/createCallApiHandler';
-import createShelfConstants from './helpers/createShelfConstants';
-import createShelfReducer from './helpers/createShelfReducer';
-import createShelfSaga from './helpers/createShelfSaga';
-import createShelfActions from './helpers/createShelfActions';
-
-import createObject from './utils/createObject';
-import assign from './utils/assign';
-import resolveUrl from './utils/resolveUrl';
-
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
+
+import {
+  assign,
+  createObject,
+  resolveUrl,
+} from './utils';
+
+import {
+  createCallApiHandler,
+  createShelfConstants,
+  createShelfReducer,
+  createShelfSaga,
+  createShelfActions,
+} from './helpers';
 
 export function createApis(apisConfigList, settings?) {
   const apiRoot = settings && settings.apiRoot;

@@ -1,4 +1,4 @@
-import replaceParams from '../../src/utils/replaceParams';
+import { replaceParams } from '../../src/utils';
 
 describe('replaceParams', () => {
   it('should make url by given `pattern` and `params`', () => {

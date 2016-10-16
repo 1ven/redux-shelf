@@ -1,4 +1,4 @@
-import createShelfActions from '../../src/helpers/createShelfActions';
+import { createShelfActions } from '../../src/helpers';
 
 const actions = createShelfActions(['TODOS_REQUEST', 'TODOS_SUCCESS', 'TODOS_FAILURE']);
 

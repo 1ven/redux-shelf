@@ -1,4 +1,4 @@
-import assign from '../utils/assign';
+import { assign } from '../utils';
 import { normalize } from 'normalizr';
 import { takeEvery } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';

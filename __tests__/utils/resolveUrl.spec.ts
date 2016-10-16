@@ -1,4 +1,4 @@
-import resolveUrl from '../../src/utils/resolveUrl';
+import { resolveUrl } from '../../src/utils';
 
 describe('resolveUrl', () => {
   const assertionsData = [{
