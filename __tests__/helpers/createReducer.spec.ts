@@ -67,4 +67,25 @@ describe('createReducer', () => {
       isFetching: false,
     });
   });
+
+  it('should create reducer which returns new state handled by multiple actions with same action types', () => {
+    const reducer = createReducer({
+      data: [],
+    }, {
+      'ADD_DATA': (state, payload) => assign({}, state, {
+        data: [...state.data, payload + 1],
+      }),
+    }, {
+      'ADD_DATA': (state, payload) => assign({}, state, {
+        data: [...state.data, payload + 4],
+      }),
+    });
+
+    expect(reducer(undefined, {
+      type: 'ADD_DATA',
+      payload: 1,
+    })).toEqual({
+      data: [2, 5],
+    });
+  });
 });
