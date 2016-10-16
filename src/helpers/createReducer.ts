@@ -1,14 +1,12 @@
-/* /1* import { IAction, IActionType } from '../interfaces'; *1/ */
+/* import { IAction, IActionType } from '../interfaces'; */
 
-/* /1* type IState = any; *1/ */
+/* type IState = any; */
 
-/* /1* type IActionHandler = (state: IState, payload?: any) => IState; *1/ */
+/* type IActionHandler = (state: IState, payload?: any) => IState; */
 
-/* /1* interface IActionHandlersMap { *1/ */
-/* /1*   [key: IActionType]: IActionHandler, *1/ */
-/* /1* } *1/ */
-
-// 6. possible provide full action to transformer instead of payload */
+/* interface IActionHandlersMap { */
+/*   [key: IActionType]: IActionHandler, */
+/* } */
 
 import * as reduce from 'lodash/reduce';
 
