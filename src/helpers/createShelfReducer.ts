@@ -11,14 +11,14 @@ const createShelfReducer = function(
   responseMap = identity
 ) {
   return createReducer(
-    assign(customState, {
+    assign({
       isFetching: false,
       // may be remove these undefined props, as we are will be using interface
       lastUpdated: undefined,
       error: undefined,
       data: undefined,
-    }),
-    assign(customMap, {
+    }, customState),
+    {
       [request]: (state, payload) => assign(state, {
         isFetching: true,
       }),
@@ -32,7 +32,8 @@ const createShelfReducer = function(
         isFetching: false,
         error: payload.message,
       }),
-    })
+    },
+    customMap
   );
 }
 

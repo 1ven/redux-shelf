@@ -110,6 +110,35 @@ describe('createShelfReducer', () => {
     });
   });
 
+  it('should create reducer with custom action types mappings, which contains already mapping action type', () => {
+    const reducer = createShelfReducer(actions, undefined, {
+      [actions[1]]: (state, payload) => assign({}, state, {
+        value: 'some additional value',
+      }),
+    });
+
+    const previousState = {
+      isFetching: true,
+      error: 'message',
+    };
+
+    deepFreeze(previousState);
+
+    expect(reducer(previousState, {
+      type: actions[1],
+      payload: {
+        receivedAt: 1,
+        result: ['item_1', 'item_2'],
+      },
+    })).toEqual({
+      isFetching: false,
+      error: undefined,
+      lastUpdated: 1,
+      data: ['item_1', 'item_2'],
+      value: 'some additional value',
+    });
+  });
+
   it('should create reducer, which wraps `data` with provided `responseMap` function while handling SUCCESS action', () => {
     const reducer = createShelfReducer(actions, undefined, undefined, response => response.user);
 
