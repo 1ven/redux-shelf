@@ -6,7 +6,9 @@ import * as mapValues from 'lodash/mapValues';
 
 import {
   assign,
+  camelToSnake,
   createObject,
+  replaceParams,
   resolveUrl,
 } from './utils';
 
@@ -16,6 +18,7 @@ import {
   createShelfReducer,
   createShelfSaga,
   createShelfActions,
+  createReducer,
 } from './helpers';
 
 export function createApis(apisConfigList, settings?) {
@@ -76,4 +79,21 @@ export function handleConstants(apis, customConstants?) {
     ), {}),
     customConstants
   );
+}
+
+export {
+
+  assign,
+  camelToSnake,
+  createObject,
+  replaceParams,
+  resolveUrl,
+
+  createCallApiHandler,
+  createShelfConstants,
+  createShelfReducer,
+  createShelfSaga,
+  createShelfActions,
+  createReducer,
+
 }
