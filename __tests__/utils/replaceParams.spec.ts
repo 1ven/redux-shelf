@@ -19,6 +19,13 @@ describe('replaceParams', () => {
     })).toBe('/value/some-value');
   });
 
+  it('should ignore extra params', () => {
+    expect(replaceParams('/value/:id', {
+      id: 1,
+      title: 'test',
+    })).toBe('/value/1');
+  });
+
   it('should throw an Error if matched param is not exists at `params` object', () => {
     expect(() => replaceParams('/:id/:title', {
       id: 1,
