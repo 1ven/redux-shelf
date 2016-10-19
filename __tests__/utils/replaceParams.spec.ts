@@ -13,6 +13,12 @@ describe('replaceParams', () => {
     })).toBe('http://site.com/1/test');
   });
 
+  it('should match camel case params', () => {
+    expect(replaceParams('/value/:camelCase', {
+      camelCase: 'some-value',
+    })).toBe('/value/some-value');
+  });
+
   it('should throw an Error if matched param is not exists at `params` object', () => {
     expect(() => replaceParams('/:id/:title', {
       id: 1,
