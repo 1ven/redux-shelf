@@ -71,7 +71,9 @@ export function handleReducers(apis) {
 }
 
 export function handleActions(apis) {
-  return mapValues(apis, api => api.actionsCreators);
+  return reduce(apis, (acc, api, apiName) => assign(acc, {
+    [`${apiName}Actions`]: api.actionsCreators,
+  }), {});
 }
 
 export function handleConstants(apis, customConstants?) {

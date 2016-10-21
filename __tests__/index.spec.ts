@@ -73,8 +73,8 @@ describe('handleActions', () => {
       },
     };
     expect(handleActions(apis)).toEqual({
-      fetchTodos: 'fetchTodosActionsCreators',
-      fetchArticles: 'fetchArticlesActionsCreators',
+      fetchTodosActions: 'fetchTodosActionsCreators',
+      fetchArticlesActions: 'fetchArticlesActionsCreators',
     });
   });
 });
