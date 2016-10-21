@@ -53,6 +53,7 @@ export interface IApiConfiguration {
     path: string,
     responseMap?: (response: any) => any,
   },
+  // it should be not here :)
   settings?: {
     apiRoot?: string,
   },
