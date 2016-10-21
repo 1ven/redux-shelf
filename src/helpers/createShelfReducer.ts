@@ -5,11 +5,20 @@ import { assign } from '../utils';
 /* import { IAsyncActionTypes, IActionHandlersMap, IAnyObject } from '../interfaces'; */
 
 const createShelfReducer = function(
-  [ request, success, failure ]: any,
+  actionsConfig,
   customState?,
-  customMap?,
-  responseMap = identity
+  customMap?
 ) {
+
+  const map = actionsConfig instanceof Array ? (
+    actionsConfig.reduce((acc, {
+      actionsTypes,
+      responseMap,
+    }) => assign(acc, buildMap(actionsTypes, responseMap)), {})
+  ) : (
+    buildMap(actionsConfig.actionsTypes, actionsConfig.responseMap)
+  );
+
   return createReducer(
     assign({
       isFetching: false,
@@ -18,23 +27,30 @@ const createShelfReducer = function(
       error: undefined,
       data: undefined,
     }, customState),
-    {
-      [request]: (state, { payload }) => assign(state, {
-        isFetching: true,
-      }),
-      [success]: (state, { payload }) => assign(state, {
-        isFetching: false,
-        lastUpdated: payload.receivedAt,
-        error: undefined,
-        data: responseMap(payload.result),
-      }),
-      [failure]: (state, { payload }) => assign(state, {
-        isFetching: false,
-        error: payload.message,
-      }),
-    },
+    map,
     customMap
   );
+}
+
+const buildMap = function(
+  [ request, success, failure ]: any,
+  responseMap = identity,
+) {
+  return {
+    [request]: (state, { payload }) => assign(state, {
+      isFetching: true,
+    }),
+    [success]: (state, { payload }) => assign(state, {
+      isFetching: false,
+      lastUpdated: payload.receivedAt,
+      error: undefined,
+      data: responseMap(payload.result),
+    }),
+    [failure]: (state, { payload }) => assign(state, {
+      isFetching: false,
+      error: payload.message,
+    }),
+  };
 }
 
 /* interface IState { */

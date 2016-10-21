@@ -2,7 +2,7 @@ import * as deepFreeze from 'deep-freeze';
 import * as assign from 'lodash/assign';
 import { createShelfReducer } from '../../src/helpers';
 
-const actions = [
+const actionsTypes = [
   'FETCH_TODOS_REQUEST',
   'FETCH_TODOS_SUCCESS',
   'FETCH_TODOS_FAILURE',
@@ -10,7 +10,7 @@ const actions = [
 
 describe('createShelfReducer', () => {
   it('should create reducer which returns initial state for async data', () => {
-    const reducer = createShelfReducer(actions);
+    const reducer = createShelfReducer({ actionsTypes });
 
     expect(reducer(undefined, {
       type: '',
@@ -22,7 +22,7 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer which handles `request` action', () => {
-    const reducer = createShelfReducer(actions);
+    const reducer = createShelfReducer({ actionsTypes });
     const previousState = {
       isFetching: false,
     };
@@ -30,14 +30,14 @@ describe('createShelfReducer', () => {
     deepFreeze(previousState);
 
     expect(reducer(previousState, {
-      type: actions[0],
+      type: actionsTypes[0],
     })).toEqual({
       isFetching: true,
     });
   });
 
   it('should create reducer which handles `success` action', () => {
-    const reducer = createShelfReducer(actions);
+    const reducer = createShelfReducer({ actionsTypes });
     const previousState = {
       isFetching: true,
       error: 'message',
@@ -46,7 +46,7 @@ describe('createShelfReducer', () => {
     deepFreeze(previousState);
 
     expect(reducer(previousState, {
-      type: actions[1],
+      type: actionsTypes[1],
       payload: {
         receivedAt: 1,
         result: ['item_1', 'item_2'],
@@ -60,7 +60,7 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer which handles `failure` action', () => {
-    const reducer = createShelfReducer(actions);
+    const reducer = createShelfReducer({ actionsTypes });
     const previousState = {
       isFetching: true,
     };
@@ -68,7 +68,7 @@ describe('createShelfReducer', () => {
     deepFreeze(previousState);
 
     expect(reducer(previousState, {
-      type: actions[2],
+      type: actionsTypes[2],
       payload: new Error('Something bad happened'),
     })).toEqual({
       isFetching: false,
@@ -77,7 +77,7 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer with custom state', () => {
-    const reducer = createShelfReducer(actions, {
+    const reducer = createShelfReducer({ actionsTypes }, {
       currentPage: 0,
     });
 
@@ -90,7 +90,7 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer with custom action types mappings', () => {
-    const reducer = createShelfReducer(actions, {
+    const reducer = createShelfReducer({ actionsTypes }, {
       todos: ['first'],
     }, {
       'CREATE_TODO_SUCCESS': (state, { payload }) => assign({}, state, {
@@ -112,8 +112,8 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer with custom action types mappings, which contains already mapping action type', () => {
-    const reducer = createShelfReducer(actions, undefined, {
-      [actions[1]]: state => assign({}, state, {
+    const reducer = createShelfReducer({ actionsTypes }, undefined, {
+      [actionsTypes[1]]: state => assign({}, state, {
         value: 'some additional value',
       }),
     });
@@ -126,7 +126,7 @@ describe('createShelfReducer', () => {
     deepFreeze(previousState);
 
     expect(reducer(previousState, {
-      type: actions[1],
+      type: actionsTypes[1],
       payload: {
         receivedAt: 1,
         result: ['item_1', 'item_2'],
@@ -141,7 +141,10 @@ describe('createShelfReducer', () => {
   });
 
   it('should create reducer, which wraps `data` with provided `responseMap` function while handling SUCCESS action', () => {
-    const reducer = createShelfReducer(actions, undefined, undefined, response => response.user);
+    const reducer = createShelfReducer({
+      actionsTypes,
+      responseMap: response => response.user,
+    }, undefined, undefined);
 
     expect(reducer(undefined, {
       type: 'FETCH_TODOS_SUCCESS',
@@ -152,5 +155,95 @@ describe('createShelfReducer', () => {
         },
       },
     }).data).toBe('test user');
+  });
+
+  it('should create reducer, which accepts an array of handled action types', () => {
+    const reducer = createShelfReducer([{
+      actionsTypes,
+    }, {
+      actionsTypes: [
+        'CREATE_TODO_REQUEST',
+        'CREATE_TODO_SUCCESS',
+        'CREATE_TODO_FAILURE',
+      ],
+    }]);
+
+    expect(reducer(undefined, {
+      type: 'FETCH_TODOS_SUCCESS',
+      payload: {
+        result: {
+          someData: 'some',
+        },
+        receivedAt: 1,
+      },
+    })).toEqual({
+      isFetching: false,
+      lastUpdated: 1,
+      error: undefined,
+      data: {
+        someData: 'some',
+      },
+    });
+
+    expect(reducer(undefined, {
+      type: 'CREATE_TODO_SUCCESS',
+      payload: {
+        result: {
+          anotherData: 'another',
+        },
+        receivedAt: 1,
+      },
+    })).toEqual({
+      isFetching: false,
+      lastUpdated: 1,
+      error: undefined,
+      data: {
+        anotherData: 'another',
+      },
+    });
+  });
+
+  it('should create reducer, which accepts an array of handled action types with response mappings', () => {
+    const reducer = createShelfReducer([{
+      actionsTypes,
+      responseMap: response => response.someData,
+    }, {
+      actionsTypes: [
+        'CREATE_TODO_REQUEST',
+        'CREATE_TODO_SUCCESS',
+        'CREATE_TODO_FAILURE',
+      ],
+      responseMap: response => response.anotherData,
+    }]);
+
+    expect(reducer(undefined, {
+      type: 'FETCH_TODOS_SUCCESS',
+      payload: {
+        result: {
+          someData: 'some',
+        },
+        receivedAt: 1,
+      },
+    })).toEqual({
+      isFetching: false,
+      lastUpdated: 1,
+      error: undefined,
+      data: 'some',
+    });
+
+    expect(reducer(undefined, {
+      type: 'CREATE_TODO_SUCCESS',
+      payload: {
+        result: {
+          anotherData: 'another',
+        },
+        receivedAt: 1,
+      },
+    })).toEqual({
+      isFetching: false,
+      lastUpdated: 1,
+      error: undefined,
+      data: 'another',
+    });
   });
 });

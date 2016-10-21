@@ -38,7 +38,10 @@ export function createApis(apisConfigList, settings?) {
     const callApiHandler = createCallApiHandler(fullUrl, method);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
-    const reducer = createShelfReducer(constants, customState, customMap, responseMap);
+    const reducer = createShelfReducer({
+      actionsTypes: constants,
+      responseMap,
+    }, customState, customMap);
     const saga = createShelfSaga(actionsCreators, callApiHandler, schema);
 
     return {
