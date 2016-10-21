@@ -71,7 +71,7 @@ export function handleReducers(apis) {
 }
 
 export function handleActions(apis) {
-  return reduce(apis, (acc, api, apiName) => assign(acc, {
+  return reduce(apis, (acc, api: any, apiName) => assign(acc, {
     [`${apiName}Actions`]: api.actionsCreators,
   }), {});
 }
