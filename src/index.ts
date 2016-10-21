@@ -23,6 +23,7 @@ import {
 
 export function createApis(apisConfigList, settings?) {
   const apiRoot = settings && settings.apiRoot;
+  const genericHeaders = settings && settings.headers;
 
   return mapValues(apisConfigList, (inputConfig, name) => {
     const config = assign({
@@ -35,7 +36,9 @@ export function createApis(apisConfigList, settings?) {
     const customState = state && state.customState;
     const customMap = state && state.customMap;
 
-    const callApiHandler = createCallApiHandler(fullUrl, method);
+    const callApiHandler = createCallApiHandler(fullUrl, method, [
+      genericHeaders,
+    ]);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer({
