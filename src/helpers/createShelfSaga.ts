@@ -15,7 +15,7 @@ const createShelfSaga = function(
       try {
         const wrappedResponseBody = yield call(callApiHandler, payload);
 
-        const responsePayload = !schema ? wrappedResponseBody : assign(normalize(wrappedResponseBody, schema), {
+        const responsePayload = !schema ? wrappedResponseBody : assign(normalize(wrappedResponseBody.result, schema), {
           receivedAt: wrappedResponseBody.receivedAt,
         });
 
