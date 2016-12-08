@@ -30,15 +30,16 @@ export function createApis(apisConfigList, settings?) {
     const config = assign({
       shouldCreateSaga: true,
     }, inputConfig);
-    const root = config.root || apiRoot;
+    const customRoot = config.root || apiRoot;
+    const customBuildGenericHeaders = config.headers || buildGenericHeaders;
 
     const { url, method, schema, state } = config;
-    const fullUrl = !root ? url : resolveUrl(root, url);
+    const fullUrl = !customRoot ? url : resolveUrl(customRoot, url);
     const responseMap = state && state.responseMap;
     const customState = state && state.customState;
     const customMap = state && state.customMap;
 
-    const callApiHandler = createCallApiHandler(fullUrl, method, buildGenericHeaders, buildGenericParams);
+    const callApiHandler = createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer({
