@@ -30,9 +30,10 @@ export function createApis(apisConfigList, settings?) {
     const config = assign({
       shouldCreateSaga: true,
     }, inputConfig);
+    const root = config.root || apiRoot;
 
     const { url, method, schema, state } = config;
-    const fullUrl = !apiRoot ? url : resolveUrl(apiRoot, url);
+    const fullUrl = !root ? url : resolveUrl(root, url);
     const responseMap = state && state.responseMap;
     const customState = state && state.customState;
     const customMap = state && state.customMap;

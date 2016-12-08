@@ -47,6 +47,7 @@ const buildMap = function(
       data: responseMap(payload.result),
     }),
     [failure]: (state, { payload }) => assign(state, {
+      // add lastUpdated
       isFetching: false,
       error: payload.message,
     }),
