@@ -6,7 +6,7 @@ import { assign as spread, replaceParams } from '../utils';
 
 /* import { ICallApi } from '../interfaces'; */
 
-const createCallApiHandler = function(urlPattern, method, buildGenericHeaders?, buildGenericParams?) {
+const createCallApiHandler = function(urlPattern, method, buildGenericHeaders?, buildGenericParams?, requestConfig?) {
   return ({ requestBody = {}, requestParams = {} } = {}) => {
     const genericParams = buildGenericParams && buildGenericParams();
     const genericHeaders = buildGenericHeaders && buildGenericHeaders();
@@ -19,6 +19,7 @@ const createCallApiHandler = function(urlPattern, method, buildGenericHeaders?, 
       method,
       headers: genericHeaders,
       data: requestBody,
+      withCredentials: requestConfig && requestConfig.withCredentials,
     })
       .then(({ data }) => ({
         result: data,
