@@ -27,11 +27,13 @@ const createShelfSaga = function(
           console.warn(err);
         }
 
+        const status = err.response && err.response.status;
+
         yield put(failure(assign({
           message: err.message,
         }, {
           requestPayload: payload,
-        })));
+        }, (status ? { status } : undefined))));
       }
     },
     watcher: function* () {
