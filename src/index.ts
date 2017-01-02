@@ -22,25 +22,17 @@ import {
 } from './helpers';
 
 export function createApis(apisConfigList, settings?) {
-  const apiRoot = settings && settings.apiRoot;
-  const buildGenericHeaders = settings && settings.headers;
-  const buildGenericParams = settings && settings.params;
-  const requestConfig = settings && settings.requestConfig;
-
   return mapValues(apisConfigList, (inputConfig, name) => {
     const config = assign({
       shouldCreateSaga: true,
     }, inputConfig);
-    const customRoot = config.root || apiRoot;
-    const customBuildGenericHeaders = config.headers || buildGenericHeaders;
 
-    const { url, method, schema, state, call } = config;
-    const fullUrl = !customRoot ? url : resolveUrl(customRoot, url);
+    const { schema, state, call } = config;
     const responseMap = state && state.responseMap;
     const customState = state && state.customState;
     const customMap = state && state.customMap;
 
-    const callApiHandler = call || createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams, requestConfig);
+    const callApiHandler = call || makeCallApiHandlerFromConfig(config, settings);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer({
@@ -59,6 +51,19 @@ export function createApis(apisConfigList, settings?) {
       config,
     };
   });
+}
+
+function makeCallApiHandlerFromConfig(config, settings) {
+  const { method, url } = config;
+  const apiRoot = settings && settings.apiRoot;
+  const requestConfig = settings && settings.requestConfig;
+  const buildGenericParams = settings && settings.params;
+  const buildGenericHeaders = settings && settings.headers;
+  const customBuildGenericHeaders = config.headers || buildGenericHeaders;
+  const customRoot = config.root || apiRoot;
+  const fullUrl = !customRoot ? url : resolveUrl(customRoot, url);
+
+  return createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams, requestConfig);
 }
 
 export function handleSagas(apis) {
