@@ -13,7 +13,11 @@ const createShelfSaga = function(
   return {
     task: function* ({ payload }): any {
       try {
-        const wrappedResponseBody = yield call(callApiHandler, payload);
+        const responseBody = yield call(callApiHandler, payload);
+        const wrappedResponseBody = {
+          result: responseBody,
+          receivedAt: Date.now(),
+        };
 
         const responsePayload = !schema ? wrappedResponseBody : assign(normalize(wrappedResponseBody.result, schema), {
           receivedAt: wrappedResponseBody.receivedAt,
