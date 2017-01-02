@@ -20,7 +20,7 @@ const createCallApiHandler = function(urlPattern, method, buildGenericHeaders?, 
       headers: genericHeaders,
       data: requestBody,
       withCredentials: requestConfig && requestConfig.withCredentials,
-    });
+    }).then((response) => response.data);
   };
 }
 
