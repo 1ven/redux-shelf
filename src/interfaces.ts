@@ -49,6 +49,7 @@ export interface IApiConfiguration {
   method: IRequestMethod,
   schema?: Normalizr.SchemaType,
   shouldCreateSaga?: boolean,
+  call?: (payload) => Promise<any>,
   state?: {
     path: string,
     responseMap?: (response: any) => any,

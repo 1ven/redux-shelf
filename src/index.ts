@@ -34,13 +34,13 @@ export function createApis(apisConfigList, settings?) {
     const customRoot = config.root || apiRoot;
     const customBuildGenericHeaders = config.headers || buildGenericHeaders;
 
-    const { url, method, schema, state } = config;
+    const { url, method, schema, state, call } = config;
     const fullUrl = !customRoot ? url : resolveUrl(customRoot, url);
     const responseMap = state && state.responseMap;
     const customState = state && state.customState;
     const customMap = state && state.customMap;
 
-    const callApiHandler = createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams, requestConfig);
+    const callApiHandler = call || createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams, requestConfig);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
     const reducer = createShelfReducer({
