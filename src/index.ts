@@ -67,9 +67,9 @@ function handleSagas(apis) {
 
 // rename to `createReducers` and all rest functions or something more logical
 function handleReducers(apis, customMaps) {
-  return mapValues(apis, (api, name) => createShelfReducer({
+  return mapValues(apis, (api, name) => createShelfReducer([{
     actionTypes: api.constants,
-  }, undefined, customMaps[name]));
+  }], undefined, customMaps[name]));
 }
 
 function handleActions(apis) {
