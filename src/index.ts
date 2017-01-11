@@ -28,23 +28,15 @@ export function createApis(apisConfigList, settings?) {
     }, inputConfig);
 
     const { schema, state, call } = config;
-    const responseMap = state && state.responseMap;
-    const customState = state && state.customState;
-    const customMap = state && state.customMap;
 
     const callApiHandler = call || makeCallApiHandlerFromConfig(config, settings);
     const constants = createShelfConstants(name);
     const actionsCreators = createShelfActions(constants);
-    const reducer = createShelfReducer({
-      actionsTypes: constants,
-      responseMap,
-    }, customState, customMap);
     const saga = createShelfSaga(actionsCreators, callApiHandler, schema);
 
     return {
       constants,
       actionsCreators,
-      reducer,
       saga,
       callApiHandler,
       name,
@@ -66,27 +58,26 @@ function makeCallApiHandlerFromConfig(config, settings) {
   return createCallApiHandler(fullUrl, method, customBuildGenericHeaders, buildGenericParams, requestConfig);
 }
 
-export function handleSagas(apis) {
+function handleSagas(apis) {
   return reduce(apis, (acc, api: any) => !api.config.shouldCreateSaga ? acc : [
     ...acc,
     api.saga.watcher(),
   ], []);
 }
 
-export function handleReducers(apis) {
-  return reduce(apis, (acc, { reducer, config }) => {
-    const path = config.state && config.state.path;
-    return !path ? acc : merge({}, acc, createObject(path, reducer));
-  }, {});
+function handleReducers(apis, customMaps) {
+  return mapValues(apis, (api, name) => createShelfReducer({
+    actionTypes: api.constants,
+  }, undefined, customMaps[name]));
 }
 
-export function handleActions(apis) {
+function handleActions(apis) {
   return reduce(apis, (acc, api: any, apiName) => assign(acc, {
     [`${apiName}Actions`]: api.actionsCreators,
   }), {});
 }
 
-export function handleConstants(apis, customConstants?) {
+function handleConstants(apis, customConstants?) {
   return assign(
     reduce(apis, (acc, api: any) => assign(
       acc,
@@ -103,6 +94,11 @@ export {
   createObject,
   replaceParams,
   resolveUrl,
+
+  handleSagas,
+  handleReducers,
+  handleActions,
+  handleConstants,
 
   createCallApiHandler,
   createShelfConstants,
