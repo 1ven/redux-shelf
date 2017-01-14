@@ -72,9 +72,11 @@ function handleReducers(apis, customMaps) {
   }], undefined, customMaps[name]));
 }
 
+// move this func to helpers, and here create new func, which will be used only in root reducer(will accept api path param)?
 function handleSelectors(apis) {
   return mapValues(apis, (_, name) => ({
     getData: (state) => state[name].data,
+    getLastUpdated: (state) => state[name].lastUpdated,
     getError: (state) => state[name].error,
     isFetching: (state) => state[name].isFetching,
     isError: (state) => !! state[name].error,
