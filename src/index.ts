@@ -72,6 +72,10 @@ function handleReducers(apis, customMaps) {
   }], undefined, customMaps[name]));
 }
 
+function handleSelectors(apis) {
+  return mapValues(apis, (_, name) => (state) => state[name]);
+}
+
 function handleActions(apis) {
   return reduce(apis, (acc, api: any, apiName) => assign(acc, {
     [`${apiName}Actions`]: api.actionsCreators,
@@ -98,6 +102,7 @@ export {
 
   handleSagas,
   handleReducers,
+  handleSelectors,
   handleActions,
   handleConstants,
 
