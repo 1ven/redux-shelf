@@ -73,7 +73,12 @@ function handleReducers(apis, customMaps) {
 }
 
 function handleSelectors(apis) {
-  return mapValues(apis, (_, name) => (state) => state[name]);
+  return mapValues(apis, (_, name) => ({
+    getData: (state) => state[name].data,
+    getError: (state) => state[name].error,
+    isFetching: (state) => state[name].isFetching,
+    isError: (state) => !! state[name].error;
+  }));
 }
 
 function handleActions(apis) {
