@@ -77,7 +77,7 @@ function handleSelectors(apis) {
     getData: (state) => state[name].data,
     getError: (state) => state[name].error,
     isFetching: (state) => state[name].isFetching,
-    isError: (state) => !! state[name].error;
+    isError: (state) => !! state[name].error,
   }));
 }
 
