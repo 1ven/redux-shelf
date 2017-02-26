@@ -52,7 +52,7 @@ export interface IApiConfiguration {
   call?: (payload) => Promise<any>,
   state?: {
     path: string,
-    responseMap?: (response: any) => any,
+    responseMap?: (response: any, data: any) => any,
   },
   // it should be not here :)
   settings?: {

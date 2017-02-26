@@ -34,7 +34,7 @@ const createShelfReducer = function(
 
 const buildMap = function(
   [ request, success, failure ]: any,
-  responseMap = identity,
+  responseMap: any = identity,
 ) {
   return {
     [request]: (state, { payload }) => assign(state, {
