@@ -21,6 +21,7 @@ const createShelfSaga = function(
 
         const responsePayload = !schema ? wrappedResponseBody : assign(normalize(wrappedResponseBody.result, schema), {
           receivedAt: wrappedResponseBody.receivedAt,
+          denormalized: wrappedResponseBody.result,
         });
 
         yield put(success(assign(responsePayload, {
