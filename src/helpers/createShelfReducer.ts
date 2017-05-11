@@ -1,4 +1,4 @@
-import * as identity from 'lodash/identity';
+import * as identity from 'lodash-es/identity';
 import createReducer from './createReducer';
 import { assign } from '../utils';
 

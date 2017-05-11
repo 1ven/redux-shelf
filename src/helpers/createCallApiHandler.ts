@@ -1,6 +1,6 @@
-import * as axios from 'axios';
-import * as isEmpty from 'lodash/isEmpty';
-import * as assign from 'lodash/assign';
+import axios from 'axios';
+import * as isEmpty from 'lodash-es/isEmpty';
+import * as assign from 'lodash-es/assign';
 
 import { assign as spread, replaceParams } from '../utils';
 

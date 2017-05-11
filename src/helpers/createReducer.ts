@@ -6,7 +6,7 @@
 /*   [key: IActionType]: IActionHandler, */
 /* } */
 
-import * as reduce from 'lodash/reduce';
+import * as reduce from 'lodash-es/reduce';
 
 const transformState = function(state, action, map) {
   return reduce(map, (prevState, transformer: ITransformer, actionType) => (
