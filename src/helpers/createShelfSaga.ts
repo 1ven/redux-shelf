@@ -35,7 +35,7 @@ const createShelfSaga = function(
 
         yield put(failure(assign({
           message: err.message,
-          data: err.response && err.response.data,
+          response: err.response && err.response.data,
           status,
         }, {
           requestPayload: payload,
