@@ -1,4 +1,4 @@
-import * as identity from 'lodash-es/identity';
+import identity = require('lodash/identity');
 import createReducer from './createReducer';
 import { assign } from '../utils';
 
