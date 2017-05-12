@@ -85,7 +85,7 @@ export type IActionPayload = IAnyObject;
 
 export type IActionType = string;
 
-export type IRequestURL = string | () => string;
+export type IRequestURL = () => string | string;
 
 export type ICallApi = (
   url: IRequestURL,

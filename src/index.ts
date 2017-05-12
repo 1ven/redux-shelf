@@ -1,6 +1,6 @@
-import * as merge from 'lodash/merge';
-import * as reduce from 'lodash/reduce';
-import * as mapValues from 'lodash/mapValues';
+import merge = require('lodash/merge');
+import reduce = require('lodash/reduce');
+import mapValues = require('lodash/mapValues');
 
 /* import { IApiConfigurationList, IApiConfiguration } from './interfaces'; */
 

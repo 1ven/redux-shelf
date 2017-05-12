@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as assign from 'lodash/assign';
+import assign = require('lodash/assign');
 import { connect as reactReduxConnect } from 'react-redux';
 
 /* // two shelf features implementations tasks should be assigned. this class is used to handle maps of pages */
