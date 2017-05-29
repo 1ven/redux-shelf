@@ -30,7 +30,7 @@ export function createApis(apisConfigList, settings?) {
     const { schema, state, call } = config;
 
     const callApiHandler = call || makeCallApiHandlerFromConfig(config, settings);
-    const constants = createShelfConstants(name);
+    const constants = createShelfConstants(name, settings.namespace);
     const actionsCreators = createShelfActions(constants);
     const saga = createShelfSaga(actionsCreators, callApiHandler, schema);
 
