@@ -12,23 +12,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.14.0",
-    "lodash": "^4.16.4",
-    "normalizr": "^2.2.1",
+    "axios": "^0.16.2",
+    "lodash": "^4.17.4",
+    "normalizr": "^3.2.3",
     "redux": "^3.6.0",
-    "redux-saga": "^0.12.0"
+    "redux-saga": "^0.15.3"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "@types/lodash": "^4.14.64",
+    "@types/lodash": "^4.14.66",
     "@types/normalizr": "^2.0.18",
     "@types/redux": "^3.6.0",
-    "babel-cli": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "deep-freeze": "0.0.1",
-    "jest-cli": "^16.0.1",
-    "typescript": "^2.0.3",
-    "typings": "^1.4.0"
+    "jest-cli": "^20.0.4",
+    "typescript": "^2.3.4",
+    "typings": "^2.1.1"
   },
   "jest": {
     "moduleFileExtensions": [
