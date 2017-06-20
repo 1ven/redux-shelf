@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "postinstall": "typings install",
     "build": "rm -rf ./lib && tsc --project . && babel __temp__ --out-dir lib && rm -rf ./__temp__",
     "release": "npm test && npm run build && git add . && git commit -m 'Build lib' && npm version $VERSION && git push && git push --tags"
   },
